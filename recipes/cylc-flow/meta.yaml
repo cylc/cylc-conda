@@ -1,0 +1,63 @@
+{% set name = "cylc-flow" %}
+{% set version = "8.0a0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: "3588bef608d5bbd7911c627f88dbfad7c0553820be77317fa0b631201db43ba0"
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - pip
+    - python >3
+    - pytest-runner
+    - colorama>=0.4
+    - isodatetime>=1!2.0
+    - jinja2 >=2.10.1
+    - markupsafe>=1.1
+    - python-jose>=3.0
+    - pyzmq>=18.0
+  run:
+    - python >3
+    - colorama>=0.4
+    - isodatetime>=1!2.0
+    - jinja2 >=2.10.1
+    - markupsafe>=1.1
+    - python-jose>=3.0
+    - pyzmq>=18.0
+    - cryptography
+    - pyasn1
+
+test:
+  imports:
+    - Jinja2Filters
+    - cylc
+    - cylc.batch_sys_handlers
+    - cylc.cfgspec
+    - cylc.cycling
+    - cylc.network
+    - cylc.tests
+    - cylc.tests.cycling
+    - cylc.tests.network
+    - cylc.xtriggers
+    - parsec
+
+about:
+  home: "The package home page"
+  license: "GNU General Public v3 (GPLv3)"
+  license_family: "GPL3"
+  license_file: ""
+  summary: "Summary of the package"
+  doc_url: ""
+  dev_url: ""
+
+extra:
+  recipe-maintainers:
+    - kinow
