@@ -1,0 +1,49 @@
+{% set name = "graphene-tornado" %}
+{% set version = "2.1.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: "ba6aecc96d2f72199c7ae1a589d86bebdacf1b24d1cfb9375e83d687d825eb4b"
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - graphene >=2.1,<3
+    - jinja2 >=2.10.1
+    - pip
+    - python
+    - six >=1.10.0
+    - tornado >=5.1.0
+    - werkzeug ==0.12.2
+  run:
+    - graphene >=2.1,<3
+    - jinja2 >=2.10.1
+    - python
+    - six >=1.10.0
+    - tornado >=5.1.0
+    - werkzeug ==0.12.2
+
+test:
+  imports:
+    - graphene_tornado
+    - graphene_tornado.tests
+
+about:
+  home: "https://github.com/graphql-python/graphene-tornado"
+  license: "MIT"
+  license_family: "MIT"
+  license_file: ""
+  summary: "Graphene Tornado integration"
+  doc_url: ""
+  dev_url: ""
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here
