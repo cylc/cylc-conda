@@ -1,13 +1,15 @@
 {% set name = "cylc-flow" %}
-{% set version = "8.0a0" %}
+{% set version = "8.0a1" %}
 
 package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
 source:
-  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: "3588bef608d5bbd7911c627f88dbfad7c0553820be77317fa0b631201db43ba0"
+  #git_url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  #sha256: "3588bef608d5bbd7911c627f88dbfad7c0553820be77317fa0b631201db43ba0"
+  git_url: https://github.com/cylc/cylc-flow.git
+  git_rev: bb5a1270e5a695e4a69c4f0d476d1c00d17ae81f
 
 build:
   number: 0
@@ -37,17 +39,9 @@ requirements:
 
 test:
   imports:
-    - Jinja2Filters
-    - cylc
-    - cylc.batch_sys_handlers
-    - cylc.cfgspec
-    - cylc.cycling
-    - cylc.network
-    - cylc.tests
-    - cylc.tests.cycling
-    - cylc.tests.network
-    - cylc.xtriggers
-    - parsec
+    - cylc.flow
+  commands:
+    - cylc --version
 
 about:
   home: "The package home page"
