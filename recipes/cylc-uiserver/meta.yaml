@@ -1,0 +1,46 @@
+{% set name = "cylc-uiserver" %}
+{% set version = "1.0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  git_url: https://github.com/cylc/cylc-uiserver.git
+  git_rev: 840d102653f1412895a045fb233f1917a06872a2
+
+build:
+  number: 0
+  entry_points:
+    - cylc-uiserver=cylc.uiserver.main:main
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - pip
+    - python
+    - pytest-runner
+  run:
+    - python
+    - jupyterhub>1.0
+    - tornado>6.0
+    - graphene-tornado
+
+test:
+  imports:
+    - cylc.flow.uiserver
+  commands:
+    - cylc-uiserver --help
+
+about:
+  home: "https://github.com/cylc/cylc-uiserver"
+  license: "GNU General Public v3 (GPLv3)"
+  license_family: "GPL3"
+  license_file: ""
+  summary: "Summary of the package"
+  doc_url: ""
+  dev_url: ""
+
+extra:
+  recipe-maintainers:
+    - kinow
