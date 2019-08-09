@@ -1,0 +1,67 @@
+{% set name = "cylc" %}
+{% set version = "8.0" %}
+# Cylc Flow
+{% set flow_hash = "bb5a1270e5a695e4a69c4f0d476d1c00d17ae81f" %}
+# Cylc Xtriggers
+{% set xtriggers_hash = "a83eb011021cf67f96e79c14f4e003fa7d3f2ab8" %}
+# Cylc UI Server
+{% set ui_server_hash = "840d102653f1412895a045fb233f1917a06872a2" %}
+# Cylc UI
+{% set ui_version = "0.6-special" %}
+{% set ui_hash = "f5a8dccf29ae304e0871434aaad25540c5c159f641997d0b66c5d89a0669724d" %}
+
+package:
+  name: '{{ name|lower }}'
+  version: "{{ version }}"
+
+source:
+  # Cylc Flow
+  # TODO: change when we release to PYPI and tag the release that works with GraphQL (8.0a2?)
+  - git_url: https://github.com/cylc/cylc-flow.git
+    git_rev: {{ flow_hash }}
+    folder: cylc-flow
+  # Cylc Xtriggers
+  # TODO: change when we release to PYPI and tag the first release
+  - git_url: https://github.com/cylc/cylc-xtriggers.git
+    git_rev: {{ xtriggers_hash }}
+    folder: cylc-xtriggers
+  # Cylc UI Server
+  # TODO: change when we release to PYPI and tag the first release
+  - git_url: https://github.com/cylc/cylc-uiserver.git
+    git_rev: {{ ui_server_hash }}
+    folder: cylc-uiserver
+  # Cylc UI
+  - url: https://github.com/kinow/cylc-ui/releases/download/{{ ui_version }}/cylc-ui-{{ ui_version }}-dist.zip
+    sha256: {{ ui_hash }}
+    folder: cylc-ui
+
+build:
+  # Skip as Cylc requires Linux
+  skip: True  # [not linux]
+  number: 0
+
+requirements:
+  host:
+    - python >3
+    - pip
+    - setuptools
+  run:
+    - python >3
+
+test:
+  commands:
+    - python -c 'import cylc.flow' && cylc --version
+    - python -c 'from cylc.xtriggers import echo'
+    - python -c 'import cylc.uiserver'
+
+about:
+  home: https://cylc.github.io
+  license: GPL-2.0+
+  license_family: GPL2
+  license_file: ''
+  summary: A workflow engine for cycling systems
+  doc_url: ''
+  dev_url: ''
+
+extra:
+  recipe-maintainers: ''
