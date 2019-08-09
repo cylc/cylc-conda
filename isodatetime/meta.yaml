@@ -1,0 +1,43 @@
+{% set name = "isodatetime" %}
+{% set version = "1!2.0.0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: "a856d0be7a78328c99c906df88a4ba572a91c26abfd5c5b07d3705b985a8259d"
+
+build:
+  number: 0
+  entry_points:
+    - isodatetime=isodatetime.main:main
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - pip
+    - python
+    - pytest-runner
+  run:
+    - python
+
+test:
+  imports:
+    - isodatetime
+  commands:
+    - isodatetime --help
+
+about:
+  home: "https://github.com/metomi/isodatetime"
+  license: "GNU Lesser General Public v3 (LGPLv3)"
+  license_family: "LGPL"
+  license_file: ""
+  summary: "Python ISO 8601 date time parser and data model/manipulation utilities"
+  doc_url: ""
+  dev_url: ""
+
+extra:
+  recipe-maintainers:
+    - kinow
