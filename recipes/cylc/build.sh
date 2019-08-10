@@ -5,14 +5,7 @@
 # Env vars (more at https://docs.conda.io/projects/conda-build/en/latest/user-guide/environment-variables.html#env-vars)
 # $PREFIX = Build prefix to which the build script should install.
 # $RECIPE_DIR = Directory of the recipe.
-# #SRC_DIR = Path to where source is unpacked or cloned.
-# #STDLIB_DIR = Python standard library location.
+# $SRC_DIR = Path to where source is unpacked or cloned.
+# $STDLIB_DIR = Python standard library location.
 
-cd cylc-flow
-$PYTHON -m pip install --no-deps --ignore-installed .[all]
-
-cd ../cylc-xtriggers
-$PYTHON -m pip install --no-deps --ignore-installed .[all]
-
-cd ../cylc-uiserver
-$PYTHON -m pip install --no-deps --ignore-installed .[all]
+cp -r "${SRC_DIR}" "$PREFIX"
