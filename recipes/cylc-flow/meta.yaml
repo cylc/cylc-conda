@@ -12,7 +12,7 @@ source:
   git_rev: bb5a1270e5a695e4a69c4f0d476d1c00d17ae81f
 
 build:
-  number: 1
+  number: 2
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
 
 requirements:
@@ -21,7 +21,7 @@ requirements:
     - python >3
     - pytest-runner
     - colorama>=0.4
-    - isodatetime>=1!2.0
+    - metomi-isodatetime>=1!2.0.1
     - jinja2 >=2.10.1
     - markupsafe>=1.1
     - python-jose>=3.0
@@ -33,7 +33,7 @@ requirements:
   run:
     - python >3
     - colorama>=0.4
-    - isodatetime>=1!2.0
+    - metomi-isodatetime>=1!2.0.1
     - jinja2 >=2.10.1
     - markupsafe>=1.1
     - python-jose>=3.0

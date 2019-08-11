@@ -1,18 +1,18 @@
-{% set name = "isodatetime" %}
-{% set version = "1!2.0.0" %}
+{% set name = "metomi-isodatetime" %}
+{% set version = "1!2.0.1" %}
 
 package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
 source:
-  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: "a856d0be7a78328c99c906df88a4ba572a91c26abfd5c5b07d3705b985a8259d"
+  git_url: https://github.com/metomi/isodatetime.git
+  git_rev: 354bc65ab4ea7b23ba65d8fdb2ddae044a095097
 
 build:
-  number: 0
+  number: 1
   entry_points:
-    - isodatetime=isodatetime.main:main
+    - isodatetime=metomi.isodatetime.main:main
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
 
 requirements:
@@ -25,7 +25,7 @@ requirements:
 
 test:
   imports:
-    - isodatetime
+    - metomi.isodatetime
   commands:
     - isodatetime --help
 
