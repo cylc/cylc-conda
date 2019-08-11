@@ -22,6 +22,7 @@ channels:
   - kinow
 ssl_verify: true
 auto_activate_base: false
+anaconda_upload: false
 ```
 
 If not loading Anaconda by default, due to issue #7980, you will need to source something similar to:
