@@ -34,6 +34,9 @@ PATH=~/Development/python/anaconda3/bin:$PATH
 . ~/Development/python/anaconda3/etc/profile.d/conda.sh
 ```
 
+The work directory of a conda environment can be accessed via an environment variable, allowing us thus
+to build up the Cylc UI directory as follows: `${CONDA_PREFIX}/work/cylc-ui`.
+
 ## References:
 
 - https://github.com/bioconda/bioconda-recipes/tree/master/recipes
