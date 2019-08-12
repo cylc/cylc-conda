@@ -72,7 +72,7 @@ You can now remove the environment if you would like.
 - `conda env remove -n cylc1`
 
 _ps: we could use the `jupyterhub_config.py` shipped with cylc-uiserver, but that file is not included in
-the wheel file, so conda install cylc-uiserver does not downloads it. We could still download from GitHub,
+the wheel file, so conda install cylc-uiserver does not download it. We could still download from GitHub,
 but that would be over-complicating for this quick experiment IMHO._
 
 ## References:
