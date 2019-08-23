@@ -29,7 +29,6 @@ requirements:
     - ansimarkup>=1.0.0
     - graphene==2.1.6
     - protobuf>=3.7
-    - python-jose>=3.0
   run:
     - python >3
     - colorama>=0.4
@@ -41,7 +40,6 @@ requirements:
     - ansimarkup>=1.0.0
     - graphene==2.1.6
     - protobuf>=3.7
-    - python-jose>=3.0
     - cryptography
     - pyasn1
 
