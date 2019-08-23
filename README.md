@@ -25,7 +25,9 @@ auto_activate_base: false
 anaconda_upload: false
 ```
 
-If not loading Anaconda by default, due to issue #7980, you will need to source something similar to:
+If not loading Anaconda by default, due to
+[``conda/conda`` issue #7980](https://github.com/conda/conda/issues/7980),
+you will need to source something similar to:
 
 ```
 #!/bin/bash
@@ -46,7 +48,7 @@ Then create a new Conda environment, e.g. `cylc1`.
 - `conda create -n cylc1`
 - `conda activate cylc1`
 
-Now you only need to install the placeholder package "cylc". You can refer to the `.recipes/cylc/meta.yaml`
+Now you only need to install the placeholder package "cylc". You can refer to the `recipes/cylc/meta.yaml`
 for its contents. But this is basically installing conda packages for `metomi-isodatetime`, `cylc-flow`,
 `cylc-uiserver`, and unzipping `cylc-ui` into the conda environment work directory (`$PREFIX` conda build env
 var).
