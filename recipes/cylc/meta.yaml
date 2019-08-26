@@ -25,9 +25,9 @@ requirements:
   host:
     - python >3
   run:
-    - python >3
     - cylc-flow==8.0a1
     - cylc-uiserver==1.0
+    - python >3
 
 test:
   imports:
