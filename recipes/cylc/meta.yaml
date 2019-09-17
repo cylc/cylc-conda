@@ -19,7 +19,7 @@ source:
 build:
   # Skip as Cylc requires Linux
   skip: True  # [not linux]
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -28,6 +28,7 @@ requirements:
     - cylc-flow==8.0a1
     - cylc-uiserver==1.0
     - python >=3.7
+    - 'configurable-http-proxy >=4.1'
 
 test:
   imports:
@@ -37,6 +38,7 @@ test:
   commands:
     - cylc --version
     - cylc-uiserver --help
+    - configurable-http-proxy -V
 
 about:
   home: https://cylc.github.io
