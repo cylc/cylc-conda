@@ -6,13 +6,11 @@ package:
   version: "{{ version }}"
 
 source:
-  #git_url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  #sha256: "3588bef608d5bbd7911c627f88dbfad7c0553820be77317fa0b631201db43ba0"
-  git_url: https://github.com/cylc/cylc-flow.git
-  git_rev: bb5a1270e5a695e4a69c4f0d476d1c00d17ae81f
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: "36f4f4363cb5cc7a3a613d2db6e84cc41c2825c6cd011191cc4821c5ca9c81a4"
 
 build:
-  number: 2
+  number: 3
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
 
 requirements:

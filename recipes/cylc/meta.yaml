@@ -1,10 +1,10 @@
 {% set name = "cylc" %}
-{% set version = "8.0" %}
+{% set version = "8.0a1" %}
 # Cylc Xtriggers
 #{% set xtriggers_hash = "a83eb011021cf67f96e79c14f4e003fa7d3f2ab8" %}
 # Cylc UI
-{% set ui_version = "0.6-special" %}
-{% set ui_hash = "f5a8dccf29ae304e0871434aaad25540c5c159f641997d0b66c5d89a0669724d" %}
+{% set ui_version = "0.1" %}
+{% set ui_hash = "639b18bb7526914203ffdc6bd80f2b580683c63e3d94c4b92d1bb00355824b44" %}
 
 package:
   name: '{{ name|lower }}'
@@ -12,21 +12,21 @@ package:
 
 source:
   # Cylc UI
-  - url: https://github.com/kinow/cylc-ui/releases/download/{{ ui_version }}/cylc-ui-{{ ui_version }}-dist.zip
+  - url: https://github.com/cylc/cylc-ui/releases/download/{{ ui_version }}/cylc-ui-{{ ui_version }}-dist.zip
     sha256: {{ ui_hash }}
     folder: cylc-ui
 
 build:
   # Skip as Cylc requires Linux
   skip: True  # [not linux]
-  number: 1
+  number: 2
 
 requirements:
   host:
     - python >=3.7
   run:
     - cylc-flow==8.0a1
-    - cylc-uiserver==1.0
+    - cylc-uiserver==0.1
     - python >=3.7
     - 'configurable-http-proxy >=4.1'
 
