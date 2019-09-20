@@ -1,19 +1,44 @@
-# Cylc Conda
+# Cylc 8 Conda Installation Instructions 
 
-Conda recipe for Cylc 8.
+Conda recipe to install the `cylc-8.0a1` alpha-1 preview release of Cylc 8.
 
-e.g.
+- [Cylc Website](https://cylc.github.io)
+- [Cylc 8
+  Architecture](https://cylc.github.io/cylc-admin/cylc-8-architecture.html).
 
-```
-cd recipes
-conda skeleton pypi isodatetime
-conda build isodatetime
-anaconda login
-anaconda upload ~/Development/python/anaconda3/conda-bld/linux-x86/isodatetime*.tar.bz2
-conda build purge 
-```
+You do not need to download the code in this repository, just follow these
+instructions.
 
-Example `.condarc`:
+The recipe includes:
+- Python 3.7
+- cylc-flow-8.0a1 - Python 3 Workflow Service and CLI
+- cylc-uiserver-0.1 - Python 3 UI Server component of the Cylc 8 architecture
+- cylc-ui-0.1 - Vue.js web UI
+- JupyterHub - authenticates users and launches their Cylc UI Servers
+- configurable-http-proxy - node.js proxy
+- (*and all software dependencies of the above*)
+
+## Current Limitations
+
+**Cylc-8.0a1 is an early full-system Cylc 8 preview release**
+- It has a fully functional Python 3 workflow service and CLI that can run
+  existing Cylc workflows
+
+**BUT:**
+- It is not production-ready yet
+  - Use the latest cylc-7.8 release in production
+- Do not use it where security is a concern
+- The UI includes a prototype "tree view" with no control capability
+  - we are working on other views, and controls
+- Data update in the UI is via polling at 5 second intervals, and monolithic
+  - future releases will use WebSockets and incremental update
+
+## Instructions
+
+### Installation
+
+Enable the `kinow` Conda channel in your `.condarc` file (pending package
+availability on conda-forge):
 
 ```
 channels:
@@ -25,60 +50,79 @@ auto_activate_base: false
 anaconda_upload: false
 ```
 
-If not loading Anaconda by default, due to
-[``conda/conda`` issue #7980](https://github.com/conda/conda/issues/7980),
-you will need to source something similar to:
-
-```
-#!/bin/bash
-
-PATH=~/Development/python/anaconda3/bin:$PATH
-. ~/Development/python/anaconda3/etc/profile.d/conda.sh
-```
-
-The work directory of a conda environment can be accessed via an environment variable, allowing us thus
-to build up the Cylc UI directory as follows: `${CONDA_PREFIX}/work/cylc-ui`.
-
-## Testing
-
-You need to enable the `kinow` channel for this test to work (see `.condarc` file above).
-
-Then create a new Conda environment, e.g. `cylc1`.
+Create a new Conda environment, e.g. `cylc1`.
 
 - `conda create -n cylc1`
 - `conda activate cylc1`
 
-Now you only need to install the placeholder package "cylc". You can refer to the `recipes/cylc/meta.yaml`
-for its contents. But this is basically installing conda packages for `metomi-isodatetime`, `cylc-flow`,
-`cylc-uiserver`, and unzipping `cylc-ui` into the conda environment work directory (`$PREFIX` conda build env
-var).
+Install Cylc
 
-- `conda install cylc` (you can wait for the confirmation question, where you have a chance to see all the packages being installed, including a few cylc* and metomi*)
+- `conda install cylc`
 
-At this point you can test your environment if you would like, with some commands like:
+You should now be able to run Cylc commands, e.g.:
 
 - `cylc --version`
-- `cylc run --no-detach five` (or any other suite you use for testing)
+- `cylc run --no-detach my.suite`
 - `cylc-uiserver --help`
-- `isodatetime`
 
-Finally, if you found nothing wrong with your environment, start the hub with:
+### Usage
 
-- `jupyterhub --JupyterHub.spawner_class="jupyterhub.spawner.LocalProcessSpawner" --Spawner.args="['-s', '${CONDA_PREFIX}/work/cylc-ui']" --Spawner.cmd="cylc-uiserver" --JupyterHub.logo_file="${CONDA_PREFIX}/work/cylc-ui/img/logo.png"`
+Start the Hub (JupyterHub gets installed with the "cylc" package):
 
-Voilà 🎉. Go to `http://localhost:8000`, log in with your local user credentials, and enjoy Cylc 8 alpha!
+- `jupyterhub
+    --JupyterHub.spawner_class="jupyterhub.spawner.LocalProcessSpawner"
+    --Spawner.args="['-s', '${CONDA_PREFIX}/work/cylc-ui']"
+    --Spawner.cmd="cylc-uiserver"
+    --JupyterHub.logo_file="${CONDA_PREFIX}/work/cylc-ui/img/logo.png"`
 
-You can now remove the environment if you would like.
+Voilà 🎉. Go to `http://localhost:8000`, log in to the Hub with your local user
+credentials, and enjoy Cylc 8 Alpha-1!
+
+- Start a workflow with the CLI (a good example is shown below)
+- Log in at the Hub to authenticate and launch your UI Server
+- Note that much of the UI Dashboard is not functional yet.
+  The functional links are:
+  - Cylc Hub
+  - Suite Design Guide (web link)
+  - Documentation (web link)
+- In the left side-bar, click on Workflows to view your running workflows
+- In the workflows view, click on icons under "Actions" to view the
+  corresponding workflow. 
+- In the tree view:
+  - click on task names to see the list of task jobs
+  - click on job icons to see the detail of a specific job
+
+To deactivate and/or remove the conda environment:
 
 - `conda deactivate`
 - `conda env remove -n cylc1`
 
-_ps: we could use the `jupyterhub_config.py` shipped with cylc-uiserver, but that file is not included in
-the wheel file, so conda install cylc-uiserver does not download it. We could still download from GitHub,
-but that would be over-complicating for this quick experiment IMHO._
+## An Example Workflow to View
 
-## References:
+The following workflow generates a bunch of tasks that initially fail before
+succeeding after a random number of retries (this shows the new "Cylc 8
+task/job separation" nicely):
 
-- https://github.com/bioconda/bioconda-recipes/tree/master/recipes
-- https://medium.com/@giswqs/building-a-conda-package-and-uploading-it-to-anaconda-cloud-6a3abd1c5c52
-- https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html
+```
+[cylc]
+   cycle point format = %Y
+   [[parameters]]
+      m = 0..5
+      n = 0..2
+[scheduling]
+   initial cycle point = 3000
+   [[graph]]
+      P1Y = "foo[-P1Y] => foo => bar<m> => qux<m,n> => waz"
+[runtime]
+   [[root]]
+      script = """
+sleep 20
+# fail 50% of the time if try number is less than 5
+if (( CYLC_TASK_TRY_NUMBER < 5 )); then
+  if (( RANDOM % 4 < 2 )); then
+     exit 1
+  fi
+fi"""
+      [[[job]]]
+         execution retry delays = 6*PT2S
+```
