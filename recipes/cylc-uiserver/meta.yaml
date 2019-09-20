@@ -1,16 +1,16 @@
 {% set name = "cylc-uiserver" %}
-{% set version = "1.0" %}
+{% set version = "0.1" %}
 
 package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
 source:
-  git_url: https://github.com/cylc/cylc-uiserver.git
-  git_rev: 840d102653f1412895a045fb233f1917a06872a2
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: "4cc85a6680148cddd8f1fd714f772acb7c52487239b7c2b781bf543a51c099d1"
 
 build:
-  number: 0
+  number: 1
   entry_points:
     - cylc-uiserver=cylc.uiserver.main:main
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
