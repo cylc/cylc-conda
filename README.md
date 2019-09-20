@@ -69,7 +69,7 @@ Start the hub (jupyterhub gets installed with the "cylc" package):
     --Spawner.cmd="cylc-uiserver"
     --JupyterHub.logo_file="${CONDA_PREFIX}/work/cylc-ui/img/logo.png"`
 
-Voilà 🎉. Go to `http://localhost:8000`, log in wto the Hub ith your local user
+Voilà 🎉. Go to `http://localhost:8000`, log in to the Hub with your local user
 credentials, and enjoy Cylc 8 Alpha-1!
 
 - Start a workflow with the CLI (a good example is shown below)
