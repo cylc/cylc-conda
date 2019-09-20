@@ -1,8 +1,15 @@
-# Cylc Conda
+# Cylc 8 Conda Installation Instructions 
 
-Conda recipe to install the *cylc-8.0a1* "alpha-1" preview release of Cylc 8.
+Conda recipe to install the `cylc-8.0a1` alpha-1 preview release of Cylc 8.
 
-Includes:
+- [Cylc Website](https://cylc.github.io)
+- [Cylc 8
+  Architecture](https://cylc.github.io/cylc-admin/cylc-8-architecture.html).
+
+You do not need to download the code in this repository, just follow these
+instructions.
+
+The recipe includes:
 - Python 3.7
 - cylc-flow-8.0a1 - Python 3 Workflow Service and CLI
 - cylc-uiserver-0.1 - Python 3 UI Server component of the Cylc 8 architecture
@@ -11,27 +18,24 @@ Includes:
 - configurable-http-proxy - node.js proxy
 - (*and all software dependencies of the above*)
 
-The Cylc 8 Architecture is described
-[here](https://cylc.github.io/cylc-admin/cylc-8-architecture.html)
-
-## Current limitations
+## Current Limitations
 
 **Cylc-8.0a1 is an early full-system Cylc 8 preview release**
 - It has a fully functional Python 3 workflow service and CLI that can run
-  cylc-7 workflows
+  existing Cylc workflows
 
-**But:**
+**BUT:**
 - It is not production-ready yet
   - Use the latest cylc-7.8 release in production
 - Do not use it where security is a concern
-- The UI only includes our prototype "workflow tree view"
-  - with no control capability yet (just monitoring)
-  - we are working on several other views, include a dependency graph view
+- The UI includes a prototype "tree view" with no control capability
+  - we are working on other views, and controls
 - Data update in the UI is via polling at 5 second intervals, and monolithic
   - future releases will use WebSockets and incremental update
-- There is no capability to start workflows from the web UI yet
 
 ## Instructions
+
+### Installation
 
 Enable the `kinow` Conda channel in your `.condarc` file (pending package
 availability on conda-forge):
@@ -61,7 +65,9 @@ You should now be able to run Cylc commands, e.g.:
 - `cylc run --no-detach my.suite`
 - `cylc-uiserver --help`
 
-Start the hub (jupyterhub gets installed with the "cylc" package):
+### Usage
+
+Start the Hub (JupyterHub gets installed with the "cylc" package):
 
 - `jupyterhub
     --JupyterHub.spawner_class="jupyterhub.spawner.LocalProcessSpawner"
@@ -79,8 +85,8 @@ credentials, and enjoy Cylc 8 Alpha-1!
   - Cylc Hub
   - Suite Design Guide (web link)
   - Documentation (web link)
-- In the left side-bar, click on Workflows to see a list of running workflows
-- In Workflows view, click on an icon under "Actions" to view the
+- In the left side-bar, click on Workflows to view your running workflows
+- In the workflows view, click on icons under "Actions" to view the
   corresponding workflow. 
 - In the tree view:
   - click on task names to see the list of task jobs
@@ -110,7 +116,7 @@ task/job separation" nicely):
 [runtime]
    [[root]]
       script = """
-sleep 10
+sleep 20
 # fail 50% of the time if try number is less than 5
 if (( CYLC_TASK_TRY_NUMBER < 5 )); then
   if (( RANDOM % 4 < 2 )); then
