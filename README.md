@@ -40,7 +40,7 @@ The recipe includes:
 Enable the `kinow` Conda channel in your `.condarc` file (pending package
 availability on conda-forge):
 
-```
+```yaml
 channels:
   - defaults
   - conda-forge
@@ -69,11 +69,15 @@ You should now be able to run Cylc commands, e.g.:
 
 Start the Hub (JupyterHub gets installed with the "cylc" package):
 
-- `jupyterhub
-    --JupyterHub.spawner_class="jupyterhub.spawner.LocalProcessSpawner"
-    --Spawner.args="['-s', '${CONDA_PREFIX}/work/cylc-ui']"
+```sh
+mkdir -p "${HOME}/srv/cylc/"
+cd "${HOME}/srv/cylc/"
+jupyterhub \
+    --JupyterHub.spawner_class="jupyterhub.spawner.LocalProcessSpawner" \
+    --JupyterHub.logo_file="${CONDA_PREFIX}/work/cylc-ui/img/logo.png" \
+    --Spawner.args="['-s', '${CONDA_PREFIX}/work/cylc-ui']" \
     --Spawner.cmd="cylc-uiserver"
-    --JupyterHub.logo_file="${CONDA_PREFIX}/work/cylc-ui/img/logo.png"`
+```
 
 Voilà 🎉. Go to `http://localhost:8000`, log in to the Hub with your local user
 credentials, and enjoy Cylc 8 Alpha-1!
