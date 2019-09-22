@@ -70,11 +70,11 @@ You should now be able to run Cylc commands, e.g.:
 Start the Hub (JupyterHub gets installed with the "cylc" package):
 
 ```sh
-mkdir -p "${HOME}/srv/cylc/"
+mkdir -p "${HOME}/srv/cylc/"  # the hub will store session information here
 cd "${HOME}/srv/cylc/"
 jupyterhub \
     --JupyterHub.spawner_class="jupyterhub.spawner.LocalProcessSpawner" \
-    --JupyterHub.logo_file="${CONDA_PREFIX}/work/cylc-ui/img/logo.png" \
+    --JupyterHub.logo_file="${CONDA_PREFIX}/work/cylc-ui/img/logo.svg" \
     --Spawner.args="['-s', '${CONDA_PREFIX}/work/cylc-ui']" \
     --Spawner.cmd="cylc-uiserver"
 ```
