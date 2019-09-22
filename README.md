@@ -82,15 +82,16 @@ jupyterhub \
 Voilà 🎉. Go to `http://localhost:8000`, log in to the Hub with your local user
 credentials, and enjoy Cylc 8 Alpha-1!
 
-- Start a workflow with the CLI (a good example is shown below)
+- Start a workflow with the CLI (a good example is shown
+  [below](#an-example-workflow-to-view)
 - Log in at the Hub to authenticate and launch your UI Server
 ![Hub Image](img/hub.png)
 - Note that much of the UI Dashboard is not functional yet.
-![Dashboard Image](img/dash.png)
   The functional links are:
   - Cylc Hub
   - Suite Design Guide (web link)
   - Documentation (web link)
+![Dashboard Image](img/dash.png)
 - In the left side-bar, click on Workflows to view your running workflows
 - In the workflows view, click on icons under "Actions" to view the
   corresponding workflow. 
@@ -124,13 +125,13 @@ task/job separation" nicely):
 [runtime]
    [[root]]
       script = """
-sleep 20
-# fail 50% of the time if try number is less than 5
-if (( CYLC_TASK_TRY_NUMBER < 5 )); then
-  if (( RANDOM % 4 < 2 )); then
-     exit 1
-  fi
-fi"""
+         sleep 20
+         # fail 50% of the time if try number is less than 5
+         if (( CYLC_TASK_TRY_NUMBER < 5 )); then
+           if (( RANDOM % 2 < 1 )); then
+              exit 1
+           fi
+         fi"""
       [[[job]]]
          execution retry delays = 6*PT2S
 ```
