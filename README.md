@@ -84,7 +84,9 @@ credentials, and enjoy Cylc 8 Alpha-1!
 
 - Start a workflow with the CLI (a good example is shown below)
 - Log in at the Hub to authenticate and launch your UI Server
+![Hub Image](img/hub.png)
 - Note that much of the UI Dashboard is not functional yet.
+![Dashboard Image](img/dash.png)
   The functional links are:
   - Cylc Hub
   - Suite Design Guide (web link)
@@ -92,9 +94,11 @@ credentials, and enjoy Cylc 8 Alpha-1!
 - In the left side-bar, click on Workflows to view your running workflows
 - In the workflows view, click on icons under "Actions" to view the
   corresponding workflow. 
+![Workflows Image](img/workflows.png)
 - In the tree view:
   - click on task names to see the list of task jobs
   - click on job icons to see the detail of a specific job
+![Workflows Image](img/treeview.png)
 
 To deactivate and/or remove the conda environment:
 
